@@ -1,0 +1,34 @@
+# Node.js with Express
+/.monitor
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+# Windows
+Thumbs.db
+
+# Vim
+.*.sw[a-z]
+*.un~i
+tags
+
+# OsX
+.DS_Store
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# nodejs npm modules
+/node_modules
+
+# Build files
+/build/*
+
+# .work directory
+/.work
+/reports/
+
+# generated stats file
+/stats.json
