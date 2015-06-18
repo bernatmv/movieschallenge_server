@@ -55,7 +55,7 @@ gulp.task('watch', function() {
             gulp.src(event.path, { base: path.resolve(src) })
                 .pipe(webpack.closest(webpackConfigPath))
                 .pipe(webpack.init(webpackConfig))
-                .pipe(webpack.props(webpackOptions))
+                .pipe(webpack.props(webpackOptions))/*
                 .pipe(webpack.watch(function(err, stats) {
                     gulp.src(this.path, { base: this.base })
                         .pipe(webpack.proxy(err, stats))
@@ -64,7 +64,7 @@ gulp.task('watch', function() {
                             version: false
                         }))
                         .pipe(gulp.dest(dest));
-                }));
+                }))*/;
         }
     });
 });

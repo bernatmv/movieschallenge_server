@@ -18,17 +18,26 @@ router.use((req, res, next) => {
 	next();
 });
 
+router.param('username', (req, res, next, username) => {
+	// actions
+	console.log(`Param: ${username}`);
+	// save the param in the request
+	req.username = username;
+	// proceed with the routing
+	next();
+});
+
 // creates routes for the app
-router.get('/user', (req, res) => {
-	res.send('retrieve a user data');
+router.get('/user/:username', (req, res) => {
+	res.send(`retrieve ${req.params.username} data`);
 });
 
-router.get('/match', (req, res) => {
-	res.send('retrieve a match data');
+router.get('/match/:matchid', (req, res) => {
+	res.send(`retrieve match ${req.params.matchid} data`);
 });
 
-router.get('/question', (req, res) => {
-	res.send('retrieve a question data');
+router.get('/question/:questionid', (req, res) => {
+	res.send(`retrieve question ${req.params.questionid} data`);
 });
 
 app.use('/', router);
