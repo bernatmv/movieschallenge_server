@@ -1,6 +1,6 @@
 {
   "name": "movieschallenge_server",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "The server part of the Movies Challenge game, developed using the MEAN stack",
   "main": "src/server.js",
   "scripts": {
