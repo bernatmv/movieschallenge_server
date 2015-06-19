@@ -7,9 +7,9 @@ var Schema = mongoose.Schema;
 // schema
 var UserModel = new Schema({
 	name: String,
-	username: { type: String, required: true, index: { unique: true }},
+	username: { type: String, required: true},
 	password: { type: String, required: true, select: false },
-});
+}).index({ username: 1 }, { unique: true });
 
 // hash de password before saving the document
 UserModel.pre('save', function(next) {
