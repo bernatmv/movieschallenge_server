@@ -2,28 +2,43 @@ import UserModel from './user.model';
 
 class UserController {
 
-	createUser(req, res) {
-		var user = new UserModel();
-		user.name = req.body.name;
-		user.username = req.body.username;
-		user.password = req.body.password;
-		user.save(function(err) {
+  	createUser(req, res) {
+		// create model and fill data
+		var user = UserController.__fillModel(req);
+		// save to db
+		user.save((err, reg) => {
 			if (err) {
-				// duplicate entry
-				if (err.code == 11000) {
-					return res.json({ success: false, message: 'A register with this id already exists'});
-				}
-				else {
-					return res.send(err);
-				}
+				UserController.__processError(err, res);
 			}
-			// user created
-			res.json({ username: req.body.username });
+			else {
+				res.json({ success: true, id: reg._id });
+			}
 		});
 	}
 
 	getUser(req, res) {
-		res.send(`retrieve user ${req.params.username} data`);
+		// execute query to mongo
+		UserModel.findById(req.params.userId, (err, user) => {
+			(err) ? res.send(err) : res.json(user);
+		});
+	}
+
+	static __processError(err, res) {
+		// duplicate entry
+		if (err.code == 11000) {
+			res.json({ success: false, message: 'A register with this id already exists'});
+		}
+		else {
+			res.send(err);
+		}
+	}
+
+	static __fillModel(req) {
+		var user = new UserModel();
+		user.name = req.body.name;
+		user.username = req.body.username;
+		user.password = req.body.password;
+		return user;
 	}
 }
 
