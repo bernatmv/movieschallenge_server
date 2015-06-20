@@ -9,6 +9,7 @@ var UserModel = new Schema({
 	name: String,
 	username: { type: String, required: true},
 	password: { type: String, required: true, select: false },
+	ranking: { type: Number, default: 0 },
 }).index({ username: 1 }, { unique: true });
 
 // hash de password before saving the document

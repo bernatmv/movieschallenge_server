@@ -6,6 +6,9 @@ var Schema = mongoose.Schema;
 
 // schema
 var QuestionModel = new Schema({
+	category: { type: Number, required: true },
+	approved: { type: Boolean, default: false },
+	
 });
 
 // export the schema
