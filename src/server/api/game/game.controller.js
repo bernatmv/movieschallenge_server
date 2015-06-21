@@ -19,6 +19,7 @@ class GameController {
 	}
 
 	playGame(req, res) {
+		// TODO: do it!
 		res.send(`play game ${req.params.gameId} turn`);
 	}
 

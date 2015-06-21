@@ -8,7 +8,10 @@ var Schema = mongoose.Schema;
 var QuestionModel = new Schema({
 	category: { type: Number, required: true },
 	approved: { type: Boolean, default: false },
-	
+	difficulty: { type: Number, default: 1 },
+	quote: { type: String, required: true },
+	correctAnswer: { type: String, required: true },
+	otherAnswers: [String],
 });
 
 // export the schema

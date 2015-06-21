@@ -2,6 +2,7 @@ import express from 'express';
 import UserRouter from '../api/user';
 import GameRouter from '../api/game';
 import QuestionRouter from '../api/question';
+import FunFactsRouter from '../api/funfacts';
 
 const router = express.Router();
 
@@ -38,4 +39,5 @@ export default function(app) {
 	app.use('/api', UserRouter);
 	app.use('/api', GameRouter);
 	app.use('/api', QuestionRouter);
+	app.use('/api', FunFactsRouter);
 };

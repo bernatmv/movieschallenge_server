@@ -17,7 +17,6 @@ class UserController {
 	}
 
 	getUser(req, res) {
-		// execute query to mongo
 		UserModel.findById(req.params.userId, (err, user) => {
 			(err) ? res.send(err) : res.json(user);
 		});
