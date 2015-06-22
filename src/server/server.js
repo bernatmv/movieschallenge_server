@@ -6,7 +6,7 @@ import parser from 'body-parser';
 import morgan from 'morgan';
 // load configuration and router
 import config from './config/config';
-import router from './config/router';
+import routes from './config/routes';
 
 var app = express();
 
@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 });
 
 // set routes
-router(app);
+routes(app);
 
 // start the server
 app.listen(config.port);

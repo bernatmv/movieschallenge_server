@@ -1,12 +1,19 @@
 import express from 'express';
+import BaseRouter from '../router.base'
 import GameController from './game.controller';
 
-const router = express.Router(),
-	gameController = new GameController();
+const gameController = new GameController();
 
-router.get('/games', gameController.getAllGames);
-router.post('/game', gameController.createGame);
-router.get('/game/:gameId', gameController.getGame);
-router.post('/game/:gameId/play', gameController.playGame);
+class GameRouter extends BaseRouter {
 
-export default router;
+	addRoutes() {
+		super.addRoutes();
+		// add routes
+		this.router.get('/games', gameController.getAllGames);
+		this.router.post('/game', gameController.createGame);
+		this.router.get('/game/:gameId', gameController.getGame);
+		this.router.post('/game/:gameId/play', gameController.playGame);
+	}
+}
+
+export default new GameRouter();

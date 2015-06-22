@@ -1,12 +1,19 @@
 import express from 'express';
+import BaseRouter from '../router.base'
 import QuestionController from './question.controller';
 
-const router = express.Router(),
-	questionController = new QuestionController();
+const questionController = new QuestionController();
 
-router.get('/questions', questionController.getAllQuestions);
-router.get('/question/:questionId', questionController.getQuestion);
-router.post('/question', questionController.createQuestion);
-router.post('/question/:questionId/answer', questionController.answerQuestion);
+class QuestionRouter extends BaseRouter {
 
-export default router;
+	addRoutes() {
+		super.addRoutes();
+		// add routes
+		this.router.get('/questions', questionController.getAllQuestions);
+		this.router.get('/question/:questionId', questionController.getQuestion);
+		this.router.post('/question', questionController.createQuestion);
+		this.router.post('/question/:questionId/answer', questionController.answerQuestion);
+	}
+}
+
+export default new QuestionRouter();

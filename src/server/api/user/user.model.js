@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 
 // schema
 var UserModel = new Schema({
-	name: String,
+	email: { type: String, required: true },
 	username: { type: String, required: true},
 	password: { type: String, required: true, select: false },
 	ranking: { type: Number, default: 0 },

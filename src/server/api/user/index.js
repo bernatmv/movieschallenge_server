@@ -1,11 +1,19 @@
 import express from 'express';
+import BaseRouter from '../router.base'
 import UserController from './user.controller';
 
-const router = express.Router(),
-	userController = new UserController();
+const userController = new UserController();
 
-router.post('/user/', userController.createUser);
-router.get('/user/:userId', userController.getUser);
+class UserRouter extends BaseRouter {
 
+	addRoutes() {
+		super.addRoutes();
+		// add routes
+		this.router.post('/user', userController.createUser);
+		this.router.get('/users', userController.getAllUsers);
+		this.router.get('/user/:userId', userController.getUser);
+		this.router.get('/me', userController.getAuthenticatedUserInfo);
+	}
+}
 
-export default router;
+export default new UserRouter();

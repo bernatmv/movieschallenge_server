@@ -22,6 +22,16 @@ class UserController {
 		});
 	}
 
+	getAllUsers(req, res) {
+		UserModel.find((err, users) => {
+			(err) ? res.send(err) : res.json(users);
+		});
+	}
+
+	getAuthenticatedUserInfo(req, res) {
+		res.send(req.decodedToken);
+	}
+
 	static __processError(err, res) {
 		// duplicate entry
 		if (err.code == 11000) {
@@ -34,7 +44,7 @@ class UserController {
 
 	static __fillModel(req) {
 		var user = new UserModel();
-		user.name = req.body.name;
+		user.email = req.body.email;
 		user.username = req.body.username;
 		user.password = req.body.password;
 		return user;
