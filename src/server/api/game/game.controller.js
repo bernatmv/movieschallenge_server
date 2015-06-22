@@ -11,8 +11,13 @@ class GameController {
 		});
 	}
 
+	getAllGames(req, res) {
+		GameModel.find((err, games) => {
+			(err) ? res.send(err) : res.json(games);
+		});
+	}
+
 	getGame(req, res) {
-		// execute query to mongo
 		GameModel.findById(req.params.gameId, (err, game) => {
 			(err) ? res.send(err) : res.json(game);
 		});

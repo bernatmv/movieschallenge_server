@@ -2,20 +2,39 @@ import QuestionModel from './question.model';
 
 class QuestionController {
 
-	createQuestion(req, res) {
-		res.send('create new question');
+  	createQuestion(req, res) {
+		// create model and fill data
+		var question = UserController.__fillModel(req);
+		// save to db
+		question.save((err, reg) => {
+			(err) ?	res.send(err) : res.json({ success: true, id: reg._id });
+		});
 	}
 
 	getAllQuestions(req, res) {
-		res.send('get all questions');
+		QuestionModel.find((err, questions) => {
+			(err) ? res.send(err) : res.json(questions);
+		});
 	}
- 
- 	getQuestion(req, res) {
-		res.send(`get question ${req.params.questionId} data`);
+
+	getQuestion(req, res) {
+		QuestionModel.findById(req.params.questionId, (err, question) => {
+			(err) ? res.send(err) : res.json(question);
+		});
 	}
 
 	answerQuestion(req, res) {
 		res.send(`answer question ${req.params.questionId}`);
+	}
+
+	static __fillModel(req) {
+		var question = new QuestionModel();
+		question.category = req.body.category;
+		question.difficulty = req.body.difficulty;
+		question.quote = req.body.quote;
+		question.correctAnswer = req.body.correctAnswer;
+		question.otherAnswers = req.body.otherAnswers;
+		return question;
 	}
 }
 
