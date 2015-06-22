@@ -1,4 +1,3 @@
-import express from 'express';
 import BaseRouter from '../router.base'
 import QuestionController from './question.controller';
 

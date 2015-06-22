@@ -1,11 +1,17 @@
-import express from 'express';
-import FunFactsController from './funfacts.controller';
+import BaseRouter from '../router.base'
+import FunFactsController from './game.controller';
 
-const router = express.Router(),
-	funfactsController = new FunFactsController();
+const funfactsController = new FunFactsController();
 
-router.get('/funfacts', funfactsController.getAllFacts);
-router.get('/funfact/:factId', funfactsController.getFact);
-router.post('/funfact', funfactsController.createFact);
+class FunFactsRouter extends BaseRouter {
 
-export default router;
+	addRoutes() {
+		super.addRoutes();
+		// add routes
+		this.router.get('/funfacts', funfactsController.getAllFacts);
+		this.router.get('/funfact/:factId', funfactsController.getFact);
+		this.router.post('/funfact', funfactsController.createFact);
+	}
+}
+
+export default new FunFactsRouter();
