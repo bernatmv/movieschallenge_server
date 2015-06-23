@@ -10,4 +10,13 @@ angular
 			{ name: 'sleep', color: 'green', time: 1000 },
 			{ name: 'eat', color: 'red', time: 20 },
 		];
+		vm.factsData = {};
+		vm.addFact = function() {
+			vm.facts.push({
+				name: vm.factsData.name,
+				color: vm.factsData.color,
+				time: vm.factsData.time,
+			});
+			vm.factsData = {};
+		}
 	});

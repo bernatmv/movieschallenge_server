@@ -38,6 +38,12 @@
 				</tr>
 			</tbody>
 		</table>
+		<form class="form-inline" ng-submit="main.addFact()">
+			<input type="text" class="form-control" placeholder="play" ng-model="main.factsData.name" />
+			<input type="text" class="form-control" placeholder="white" ng-model="main.factsData.color" />
+			<input type="text" class="form-control" placeholder="0" ng-model="main.factsData.time" />
+			<button type="submit" class="btn btn-success">Add</button>
+		</form>
 	</div>
 
 </body>
