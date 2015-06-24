@@ -31,6 +31,12 @@ app.use((req, res, next) => {
 // set routes
 routes(app);
 
+// static server for the assets and Angular app
+app.use(express.static(__dirname + '/../client'));
+app.get('*', function(req, res) {
+	res.sendFile(path.join(__dirname + '/../client/index.html'));
+});
+
 // start the server
 app.listen(config.port);
 
