@@ -1,5 +1,5 @@
 angular
-	.module('movieschallenge', ['movieschallengeRoutes'])
+	.module('ngApp', ['ngApp.states'])
 	.controller('mainController', function() {
 		// bind "this" to "vm" (view-model)
 		var vm = this;
