@@ -13,12 +13,12 @@ var app = express();
 // connect to DB
 db.connect(config.mongodb);
 
-// configure app to pull POST information, to log all requests and to handle CORS
+// configure app to pull POST information 
 app.use(parser.urlencoded({ extended: true }));
 app.use(parser.json());
-
+// log all requests 
 app.use(morgan('dev'));
-
+// handle CORS
 app.use((req, res, next) => {
 	// set headers
 	res.setHeader('Access-Control-Allow-Origin', '*');
@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 	next();
 });
 
-// set routes
+// set routes to the API
 routes(app);
 
 // static server for the assets and Angular app

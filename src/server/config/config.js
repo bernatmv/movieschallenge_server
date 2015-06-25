@@ -1,5 +1,5 @@
 export default {
-	port: 1337,
+	port: process.env.PORT || 8080,
 	mongodb: 'mongodb://localhost/lovely',
 	secret: 'hanabiarefireflowersthatbloomintheskywherethereisnolimitandeverythingispossible',
 }
