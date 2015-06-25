@@ -1,5 +1,5 @@
 angular
-	.module('ngApp', ['ngApp.states'])
+	.module('ngApp', ['ngApp.states', 'ngAnimate'])
 	.controller('mainController', function() {
 		// bind "this" to "vm" (view-model)
 		var vm = this;
