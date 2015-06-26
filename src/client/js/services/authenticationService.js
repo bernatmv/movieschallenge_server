@@ -23,7 +23,6 @@ angular.module('ngApp.authService', [])
 						password: password 
 					})
 					.success(function(data) {
-						console.log(data);
 						AuthToken.setToken(data.token);
 						return data;
 					});
@@ -53,7 +52,7 @@ angular.module('ngApp.authService', [])
 			responseError: function(response) {
 				if (response.status === 403) {
 					AuthToken.setToken();
-					$location.path('/home');
+					$location.path('/');
 				}
 				return $q.reject(response);
 			}

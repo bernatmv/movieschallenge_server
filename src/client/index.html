@@ -23,7 +23,7 @@
 	<script src="js/services/authenticationService.js"></script>
 
 </head>
-<body class="container" ng-app="ngApp">
+<body class="container" ng-app="ngApp" ng-controller="mainController as main">
 
 	<header>
 		<nav class="navbar navbar-inverse">
@@ -33,13 +33,11 @@
 				</div>
 
 				<ul class="nav navbar-nav" ng-if="main.loggedIn">
-					<li><a ui-sref="home"><i class="fa fa-home"></i> Home</a></li>
 					<li><a ui-sref="questions"><i class="fa fa-comment"></i> Questions</a></li>
-					<li><a ui-sref="contact"><i class="fa fa-comment"></i> Contact</a></li>
 				</ul>
-				<ul class="nav navbar-nav navbar-right">
+				<ul class="nav navbar-nav navbar-right" style="margin-right: 15px;">
 					<li ng-if="!main.loggedIn"><a ui-sref="home"><i class="fa fa-home"></i> Login</a></li>
-					<li ng-if="main.loggedIn" class="navbar-text">You rock, {{ main.user.name }}!</li>
+					<li ng-if="main.loggedIn" class="navbar-text">You rock <b>{{ main.user.username }}</b>!</li>
 					<li><a ui-sref="contact"><i class="fa fa-comment"></i> Contact</a></li>
 					<li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Logout</a></li>
 				</ul>
