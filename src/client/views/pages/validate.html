@@ -1,0 +1,32 @@
+<div class="page-header">
+	<h1>
+		Validate
+		<a ui-sref="questions" class="btn btn-default">
+			<span class="glyphicon glyphicon-plus"></span>
+			Add Question
+		</a>
+	</h1>
+</div>
+
+<div class="jumbotron text-center" ng-show="validate.processing">
+	<span class="glyphicon glyphicon-repeat spinner"></span>
+	<p>Loading questions...</p>
+</div>
+
+<table class="table table-bordered table-stripped" ng-show="validate.questions">
+	<thead>
+		<tr>
+			<th></th>
+			<th class="col-sm-2"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- loop -->
+		<tr ng-repeat="question in validate.questions">
+			<td>{{ }}</td>
+			<td class="col-sm-2">
+				<a ng-href="/validate/{{ }}" class="btn btn-danger">Validate</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
