@@ -1,6 +1,9 @@
 angular
-	.module('ngApp.questions', [])
-	.controller('questionsController', function() {
+	.module('ngApp.questions', ['ngApp.questionsService'])
+	.controller('questionsController', function(Question) {
 		var vm = this;
-		vm.message = 'questions';
+		Question.all()
+			.success(function(data) {
+				console.log(data)
+			});		
 	});
