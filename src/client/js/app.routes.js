@@ -13,11 +13,17 @@ angular.module('ngApp.states', ['ui.router'])
 				controllerAs: 'main',
 			})
 			// questions
-			.state('questions', {
+			.state('questionCreate', {
 				url: '/questions',
 				templateUrl: 'views/pages/questions.html',
 				controller: 'questionsController',
-				controllerAs: 'questions',
+				controllerAs: 'question',
+			})
+			.state('questionValidate', {
+				url: '/validate',
+				templateUrl: 'views/pages/validate.html',
+				controller: 'validateController',
+				controllerAs: 'validate',
 			})
 			// contact
 			.state('contact', {

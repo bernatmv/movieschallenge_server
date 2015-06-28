@@ -1,7 +1,7 @@
 <div class="page-header">
 	<h1>
 		Validate
-		<a ui-sref="questions" class="btn btn-default">
+		<a ui-sref="questionCreate" class="btn btn-default">
 			<span class="glyphicon glyphicon-plus"></span>
 			Add Question
 		</a>
@@ -16,16 +16,26 @@
 <table class="table table-bordered table-stripped" ng-show="validate.questions">
 	<thead>
 		<tr>
-			<th></th>
+			<th>Category</th>
+			<th>Difficulty</th>
+			<th>Quote</th>
+			<th>Correct answer</th>
+			<th>Other answers</th>
+			<th>Approved</th>
 			<th class="col-sm-2"></th>
 		</tr>
 	</thead>
 	<tbody>
 		<!-- loop -->
 		<tr ng-repeat="question in validate.questions">
-			<td>{{ }}</td>
+			<td>{{ question.category }}</td>
+			<td>{{ question.difficulty }}</td>
+			<td>{{ question.quote }}</td>
+			<td>{{ question.correctAnswer }}</td>
+			<td>{{ question.otherAnswers }}</td>
+			<td>{{ question.approved }}</td>
 			<td class="col-sm-2">
-				<a ng-href="/validate/{{ }}" class="btn btn-danger">Validate</a>
+				<a ng-href="/validate/{{ question._id }}" class="btn btn-danger">Validate</a>
 			</td>
 		</tr>
 	</tbody>

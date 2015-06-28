@@ -1,5 +1,5 @@
 angular
-	.module('ngApp.questions', ['ngApp.questionsService'])
+	.module('ngApp.question.create', ['ngApp.questionsService'])
 	.controller('questionsController', function(Question) {
 		var vm = this;
 		Question.all()

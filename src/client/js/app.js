@@ -2,7 +2,8 @@ angular
 	.module('ngApp', [
 		'ngApp.states', 
 		'ngApp.main', 
-		'ngApp.questions', 
+		'ngApp.question.create', 
+		'ngApp.question.validate', 
 		'ngApp.contact', 
 		'ngAnimate'
 	])
