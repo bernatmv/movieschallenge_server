@@ -1,6 +1,8 @@
 angular.module('ngApp.states', ['ui.router'])
 	// configure the routes
-	.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+	.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
+		// html5 mode
+		$locationProvider.html5Mode(true);
 		// unmatched urls
 		$urlRouterProvider.otherwise("/");
 		// set up the states
@@ -24,6 +26,12 @@ angular.module('ngApp.states', ['ui.router'])
 				templateUrl: 'views/pages/validate.html',
 				controller: 'validateController',
 				controllerAs: 'validate',
+			})
+			.state('questionEdit', {
+				url: '/edit/:questionId',
+				templateUrl: 'views/pages/questions.html',
+				controller: 'editQuestionController',
+				controllerAs: 'question',
 			})
 			// contact
 			.state('contact', {

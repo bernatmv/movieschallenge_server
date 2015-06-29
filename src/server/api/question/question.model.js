@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 // schema
 var QuestionModel = new Schema({
 	category: { type: Number, required: true },
-	approved: { type: Boolean, default: false },
+	approved: { type: Number, default: 0 },
 	difficulty: { type: Number, default: 1 },
 	quote: { type: String, required: true },
 	correctAnswer: { type: String, required: true },

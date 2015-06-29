@@ -1,7 +1,9 @@
 <div class="page-header">
 	<h1>
-		Create Question
+		<span ng-if="!question.questionId">Create question</span>
+		<span ng-if="question.questionId">Edit question</span>
 		<a ui-sref="questionValidate" class="btn btn-default" ng-if="main.user.admin">
+			<span class="glyphicon glyphicon-ok"></span>
 			Validate
 		</a>
 	</h1>
@@ -39,7 +41,7 @@
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Quote<br /><small>{{ 200 - question.questionData.quote.length }} characters left</small></label>
 		<div class="col-sm-6">
-			<textarea class="form-control"
+			<textarea class="form-control" rows="5"
 				ng-model="question.questionData.quote"
 				ng-maxlength="200" ng-minlength="2" ng-required="true" ng-trim="false"
 				placeholder="Max length: 200 characters. If you want to create a dialog, insert a line break on each change of person."></textarea>
@@ -54,37 +56,57 @@
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Bad answer 1</label>
 		<div class="col-sm-6">
-			<input type="text" class="form-control" ng-model="question.questionData.otherAnswer1" ng-required="true" placeholder="The wrong answers should be plausible, so the game remains challenging">
+			<input type="text" class="form-control" ng-model="question.questionData.otherAnswers[0]" ng-required="true" placeholder="The wrong answers should be plausible, so the game remains challenging">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Bad answer 2</label>
 		<div class="col-sm-6">
-			<input type="text" class="form-control" ng-model="question.questionData.otherAnswer2" ng-required="true" placeholder="The wrong answers should be plausible, so the game remains challenging">
+			<input type="text" class="form-control" ng-model="question.questionData.otherAnswers[1]" ng-required="true" placeholder="The wrong answers should be plausible, so the game remains challenging">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Bad answer 3</label>
 		<div class="col-sm-6">
-			<input type="text" class="form-control" ng-model="question.questionData.otherAnswer3" ng-required="true" placeholder="The wrong answers should be plausible, so the game remains challenging">
+			<input type="text" class="form-control" ng-model="question.questionData.otherAnswers[2]" ng-required="true" placeholder="The wrong answers should be plausible, so the game remains challenging">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Bad answer 4</label>
 		<div class="col-sm-6">
-			<input type="text" class="form-control" ng-model="question.questionData.otherAnswer4" ng-required="true" placeholder="The wrong answers should be plausible, so the game remains challenging">
+			<input type="text" class="form-control" ng-model="question.questionData.otherAnswers[3]" ng-required="true" placeholder="The wrong answers should be plausible, so the game remains challenging">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Bad answer 5</label>
 		<div class="col-sm-6">
-			<input type="text" class="form-control" ng-model="question.questionData.otherAnswer5" ng-required="true" placeholder="The wrong answers should be plausible, so the game remains challenging">
+			<input type="text" class="form-control" ng-model="question.questionData.otherAnswers[4]" ng-required="true" placeholder="The wrong answers should be plausible, so the game remains challenging">
 		</div>
 	</div>
 
-	<div class="form-group">
+	<div class="form-group" ng-if="!main.user.admin || !question.questionId">
 		<div class="col-sm-6 col-sm-offset-2">
 			<button type="submit" class="btn btn-success btn-lg btn-block">Add Question</button>
+		</div>
+	</div>
+	<div class="form-group" ng-if="main.user.admin && question.questionId">
+		<div class="col-sm-2 col-sm-offset-2">
+			<button ng-click="question.editQuestion()" class="btn btn-primary btn-lg btn-block">
+				<span class="glyphicon glyphicon-floppy-disk"></span>
+				Save
+			</button>
+		</div>
+		<div class="col-sm-2">
+			<button ng-click="question.validateQuestion()" class="btn btn-success btn-lg btn-block">
+				<span class="glyphicon glyphicon-ok"></span>
+				Validate
+			</button>
+		</div>
+		<div class="col-sm-2">
+			<button ng-click="question.deleteQuestion()" class="btn btn-danger btn-lg btn-block">
+				<span class="glyphicon glyphicon-remove"></span>
+				Remove
+			</button>
 		</div>
 	</div>
 </form>
