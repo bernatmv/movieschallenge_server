@@ -22,14 +22,14 @@ angular
 					console.log(data, status);
 					vm.message = 'Error';
 				});
-		};
+		}
 		vm.resetQuestion = function() {
 			vm.questionData = {
 				category: 0,
 				difficulty: 1,
 				otherAnswers: ['','','','','']
 			};
-		};
+		}
 		// initializations
 		vm.resetQuestion();
 	});

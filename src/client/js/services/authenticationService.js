@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('ngApp.authService', [])
 	.factory('AuthToken', function($window) {
 		return {

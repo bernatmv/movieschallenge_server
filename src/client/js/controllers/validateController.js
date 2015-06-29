@@ -1,3 +1,5 @@
+'use strict';
+
 angular
 	.module('ngApp.question.validate', ['ngApp.questionsService'])
 	.controller('validateController', function(Question) {

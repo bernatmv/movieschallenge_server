@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('ngApp.questionsService', [])
 	.factory('Question', function($http) {
 		return {

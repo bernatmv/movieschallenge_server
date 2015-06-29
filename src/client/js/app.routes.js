@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('ngApp.states', ['ui.router'])
 	// configure the routes
 	.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
