@@ -44,7 +44,6 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right" style="margin-right: 15px;">
 					<li ng-if="!main.loggedIn"><a ui-sref="home"><i class="fa fa-home"></i> Login</a></li>
-					<li ng-if="main.loggedIn" class="navbar-text">You rock <b>{{ main.user.username }}</b>!</li>
 					<li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Logout</a></li>
 				</ul>
 			</div>
