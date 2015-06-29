@@ -1,13 +1,13 @@
-import QuestionModel from './question.model';
+import QuestionModel from './question.model'
 
 class QuestionController {
 
   	createQuestion(req, res) {
 		// create model and fill data
-		var question = UserController.__fillModel(req);
+		var question = QuestionController.__fillModel(req);
 		// save to db
 		question.save((err, reg) => {
-			(err) ?	res.send(err) : res.json({ success: true, id: reg._id });
+			return (err) ?	res.send(err) : res.json({ success: true, id: reg._id });
 		});
 	}
 
@@ -15,6 +15,13 @@ class QuestionController {
 		QuestionModel.find((err, questions) => {
 			(err) ? res.send(err) : res.json(questions);
 		});
+	}
+
+    getAllPendingQuestions(req, res) {
+		QuestionModel.find({ approved: false })
+            .exec((err, questions) => {
+    			(err) ? res.send(err) : res.json(questions);
+    		});
 	}
 
 	getQuestion(req, res) {

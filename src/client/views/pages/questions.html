@@ -1,8 +1,98 @@
 <div class="page-header">
 	<h1>
-		Questions
+		Create Question
 		<a ui-sref="questionValidate" class="btn btn-default">
 			Validate
 		</a>
 	</h1>
+</div>
+
+<form class="form-horizontal" ng-submit="question.addQuestion()">
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Category</label>
+		<div class="col-sm-6">
+			<select class="form-control"
+				ng-model="question.questionData.category"
+				convert-to-number>
+				<option value="0">Assign a category</option>
+				<option value="1">History / Action</option>
+				<option value="2">Romantic</option>
+				<option value="3">Fantasy / SiFi</option>
+				<option value="4">Humor</option>
+				<option value="5">Family</option>
+				<option value="6">Other</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Difficulty</label>
+		<div class="col-sm-6">
+			<select class="form-control"
+				ng-model="question.questionData.difficulty"
+				convert-to-number>
+				<option value="1">Normal</option>
+				<option value="3">Hard</option>
+				<option value="5">Very hard</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Quote</label>
+		<div class="col-sm-6">
+			<textarea class="form-control"
+				ng-model="question.questionData.quote"
+				ng-maxlength="200" ng-minlength="2" ng-required="true"
+				placeholder="Max length: 200 characters"></textarea>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Movie (correct answer)</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="question.questionData.correctAnswer" ng-required="true" placeholder="Please, make sure that the name of the movie is correct">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Bad answer 1</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="question.questionData.otherAnswer1" ng-required="true" placeholder="The wrong answers should be plausible, so the game remains challenging">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Bad answer 2</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="question.questionData.otherAnswer2" ng-required="true" placeholder="The wrong answers should be plausible, so the game remains challenging">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Bad answer 3</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="question.questionData.otherAnswer3" ng-required="true" placeholder="The wrong answers should be plausible, so the game remains challenging">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Bad answer 4</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="question.questionData.otherAnswer4" ng-required="true" placeholder="The wrong answers should be plausible, so the game remains challenging">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Bad answer 5</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="question.questionData.otherAnswer5" ng-required="true" placeholder="The wrong answers should be plausible, so the game remains challenging">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-6 col-sm-offset-2">
+			<button type="submit" class="btn btn-success btn-lg btn-block">Add Question</button>
+		</div>
+	</div>
+</form>
+
+<div class="row show-hide-message" ng-show="question.message">
+	<div class="col-sm-6 col-sm-offset-2">
+		<div class="alert alert-info">
+			{{ question.message }}
+		</div>
+	</div>
 </div>

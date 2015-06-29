@@ -3,8 +3,11 @@ angular
 	.controller('validateController', function(Question) {
 		var vm = this;
 		vm.questions = [];
-		Question.all()
+		vm.processing = true;
+		// show all pending questions
+		Question.allPending()
 			.success(function(data) {
+				vm.processing = false;
 				vm.questions = data;
-			});		
+			});
 	});

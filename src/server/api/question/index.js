@@ -12,6 +12,7 @@ class QuestionRouter extends BaseRouter {
 		this.router.get('/question/:questionId', questionController.getQuestion);
 		this.router.post('/question', questionController.createQuestion);
 		this.router.post('/question/:questionId/answer', questionController.answerQuestion);
+		this.router.get('/questionsPending', questionController.getAllPendingQuestions);
 	}
 }
 
