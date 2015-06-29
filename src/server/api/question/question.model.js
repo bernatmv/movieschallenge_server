@@ -12,7 +12,7 @@ var QuestionModel = new Schema({
 	quote: { type: String, required: true },
 	correctAnswer: { type: String, required: true },
 	otherAnswers: [String],
-});
+}).index({ category: 1, approved: -1, difficulty: -1 });
 
 // export the schema
 export default mongoose.model('Question', QuestionModel);

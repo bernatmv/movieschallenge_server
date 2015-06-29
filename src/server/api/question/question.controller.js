@@ -7,7 +7,7 @@ class QuestionController {
 		var question = QuestionController.__fillModel(req);
 		// save to db
 		question.save((err, reg) => {
-			return (err) ?	res.send(err) : res.json({ success: true, id: reg._id });
+			return (err) ?	res.send(err) : res.json({ success: true, id: reg._id, message: 'Question created!' });
 		});
 	}
 

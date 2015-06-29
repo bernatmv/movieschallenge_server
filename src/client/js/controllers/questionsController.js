@@ -1,6 +1,8 @@
+'use strict';
+
 angular
 	.module('ngApp.question.create', ['ngApp.questionsService'])
-	.controller('questionsController', function(Question) {
+	.controller('questionsController', function(Question, Auth) {
 		var vm = this;
 		// initializations
 		vm.questionData = {
@@ -9,6 +11,7 @@ angular
 		};
 		// methods
 		vm.addQuestion = function() {
+				vm.message = '';
 				Question.create({
 					category: vm.questionData.category,
 					difficulty: vm.questionData.difficulty,
@@ -21,6 +24,14 @@ angular
 						vm.questionData.otherAnswer4,
 						vm.questionData.otherAnswer5
 					]
+				})
+				.success(function(data) {
+					vm.questionData = {};
+					vm.message = data.message;
+				})
+				.error(function(data, status) {
+					console.log(data, status);
+					vm.message = 'Error';
 				});
 		}
 	});

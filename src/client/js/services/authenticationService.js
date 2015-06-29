@@ -6,7 +6,7 @@ angular.module('ngApp.authService', [])
 			},
 			setToken: function(token) {
 				if (token) {
-					$window.localStorage.setItem('token', token);	
+					$window.localStorage.setItem('token', token);
 				}
 				else {
 					$window.localStorage.removeItem('token');
@@ -18,9 +18,9 @@ angular.module('ngApp.authService', [])
 		return {
 			login: function(username, password) {
 				// get the token and save it
-				return $http.post('/api/authenticate', { 
-						username: username, 
-						password: password 
+				return $http.post('/api/authenticate', {
+						username: username,
+						password: password
 					})
 					.success(function(data) {
 						AuthToken.setToken(data.token);

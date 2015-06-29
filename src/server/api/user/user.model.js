@@ -9,6 +9,7 @@ var UserModel = new Schema({
 	email: { type: String, required: true },
 	username: { type: String, required: true},
 	password: { type: String, required: true, select: false },
+	admin: { type: Number, default: 0 },
 	ranking: { type: Number, default: 0 },
 }).index({ username: 1 }, { unique: true });
 

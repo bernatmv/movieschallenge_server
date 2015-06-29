@@ -1,31 +1,37 @@
-import UserModel from '../user/user.model';
+import UserModel from '../user/user.model'
 import jwt from 'jsonwebtoken';
 import config from '../../config/config'
 
 class LoginController {
 
 	authenticate(req, res) {
-		UserModel.findOne({ 
-				username: req.body.username 
+		UserModel.findOne({
+				username: req.body.username
 			})
-			.select('email username password')
+			.select('email username password admin')
 			.exec((err, user) => {
 				if (err) throw err;
 				// no user found that matched the query
 				if (!user) {
-					res.json({ success: false, message: 'Authentication failed, no user found'});					
+					res.json({ success: false, message: 'Authentication failed, no user found'});
 				}
 				else {
 					// check if password matches
 					if (!user.comparePassword(req.body.password)) {
-						res.json({ success: false, message: 'Authentication failed, wrong password'});					
+						res.json({ success: false, message: 'Authentication failed, wrong password'});
 					}
 					else {
+						console.log(user.admin)
+						console.log({
+							username: user.username,
+							email: user.email,
+							admin: user.admin
+						})
 						// create token
 						var token = jwt.sign({
 							username: user.username,
 							email: user.email,
-							admin: false,
+							admin: user.admin
 						}, config.secret, {
 							expiresInMinutes: 1440,	// expires in 24h
 						});

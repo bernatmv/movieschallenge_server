@@ -22,7 +22,7 @@
 			<th>Correct answer</th>
 			<th>Other answers</th>
 			<th>Approved</th>
-			<th class="col-sm-2"></th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -30,11 +30,15 @@
 		<tr ng-repeat="question in validate.questions">
 			<td>{{ question.category }}</td>
 			<td>{{ question.difficulty }}</td>
-			<td>{{ question.quote }}</td>
+			<td style="white-space: pre;">{{ question.quote }}</td>
 			<td>{{ question.correctAnswer }}</td>
-			<td>{{ question.otherAnswers }}</td>
+			<td>
+				<div ng-repeat="answer in question.otherAnswers">
+					- {{ answer }}
+				</div>
+			</td>
 			<td>{{ question.approved }}</td>
-			<td class="col-sm-2">
+			<td ng-if="main.user.admin">
 				<a ng-href="/validate/{{ question._id }}" class="btn btn-danger">Validate</a>
 			</td>
 		</tr>

@@ -38,7 +38,7 @@
 
 				<ul class="nav navbar-nav" ng-if="main.loggedIn">
 					<li><a ui-sref="questionCreate"><i class="fa fa-comment"></i> Questions</a></li>
-					<li><a ui-sref="questionValidate"><i class="fa fa-comment"></i> Validate</a></li>
+					<li ng-if="main.user.admin"><a ui-sref="questionValidate"><i class="fa fa-comment"></i> Validate</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right" style="margin-right: 15px;">
 					<li ng-if="!main.loggedIn"><a ui-sref="home"><i class="fa fa-home"></i> Login</a></li>

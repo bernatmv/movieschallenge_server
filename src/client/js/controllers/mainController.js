@@ -13,8 +13,8 @@ angular
 			.$on('$stateChangeStart', function() {
 				vm.loggedIn = Auth.isLoggedIn();
 				Auth.getUser()
-					.then(function(response) {
-						vm.user = response.data;
+					.then(function(res) {
+						vm.user = res.data;
 					});
 		});
 		// login handler
@@ -25,7 +25,7 @@ angular
 			vm.error = '';
 			// do login
 			Auth.login(vm.loginData.username, vm.loginData.password)
-				.success(function(data) {					
+				.success(function(data) {
 					// clear spinner
 					vm.processingLogin = false;
 					// if login successful, redirect to questions, if not show an error

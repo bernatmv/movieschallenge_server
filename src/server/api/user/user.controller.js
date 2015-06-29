@@ -1,4 +1,4 @@
-import UserModel from './user.model';
+import UserModel from './user.model'
 
 class UserController {
 
@@ -30,6 +30,13 @@ class UserController {
 
 	getAuthenticatedUserInfo(req, res) {
 		res.send(req.decodedToken);
+	}
+
+    getUserInfo(req, res) {
+        UserModel.find({ username: req.params.username})
+            .exec((err, user) => {
+		        (err) ? res.send(err) : res.json(user);
+		    });
 	}
 
 	static __processError(err, res) {
