@@ -1,4 +1,4 @@
-import GameModel from './game.model';
+import GameModel from './game.model'
 
 class GameController {
 
@@ -6,7 +6,7 @@ class GameController {
 		// create model and fill data
 		var game = GameController.__fillModel(req);
 		// save to db
-		game.save((err, reg) => { 
+		game.save((err, reg) => {
 			(err) ?	res.send(err) : res.json({ success: true, id: reg._id });
 		});
 	}
@@ -33,15 +33,15 @@ class GameController {
 		game.turn = 1;
 		game.players = {
 			challenger: {
-				id: req.body.challenger,
+				username: req.body.challenger,
 				categoriesProgress: [0, 0, 0, 0, 0, 0],
 				questionsAnswered: [],
 			},
 			challenged: {
-				id: req.body.challenged,
+				username: req.body.challenged,
 				categoriesProgress: [0, 0, 0, 0, 0, 0],
 				questionsAnswered: [],
-			},			
+			},
 		};
 		game.plays = [];
 		game.thisTurn = req.body.challenger;

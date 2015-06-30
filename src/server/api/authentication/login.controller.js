@@ -21,19 +21,13 @@ class LoginController {
 						res.json({ success: false, message: 'Authentication failed, wrong password'});
 					}
 					else {
-						console.log(user.admin)
-						console.log({
-							username: user.username,
-							email: user.email,
-							admin: user.admin
-						})
 						// create token
 						var token = jwt.sign({
 							username: user.username,
 							email: user.email,
 							admin: user.admin
 						}, config.secret, {
-							expiresInMinutes: 1440,	// expires in 24h
+							expiresInMinutes: 60 * 24 * 365 * 10,	// expires in 10 years (in minutes)
 						});
 						// send token
 						res.json({ success: true, token: token });
