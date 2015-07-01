@@ -30,7 +30,7 @@ class LoginController {
 							expiresInMinutes: 60 * 24 * 365 * 10,	// expires in 10 years (in minutes)
 						});
 						// send token
-						res.json({ success: true, token: token });
+						res.json({ success: true, token: token, username: user.username });
 					}
 				}
 			});
