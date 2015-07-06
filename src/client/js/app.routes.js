@@ -42,5 +42,4 @@ angular.module('ngApp.states', ['ui.router'])
 				controller: 'contactController',
 				controllerAs: 'contact',
 			});
-
 	}]);

@@ -1,4 +1,5 @@
 import GameModel from './game.model'
+import QuestionModel from '../question/game.model'
 
 class GameController {
 
@@ -24,8 +25,13 @@ class GameController {
 	}
 
 	playGame(req, res) {
-		// TODO: do it!
-		res.send(`play game ${req.params.gameId} turn`);
+		GameModel.findById(req.params.gameId, (err, game) => {
+			(err) ? res.send(err) : res.json(game);
+		});
+		QuestionModel.find({ approved: 0 })
+            .exec((err, questions) => {
+    			(err) ? res.send(err) : res.json(questions);
+    		});
 	}
 
 	static __fillModel(req) {
