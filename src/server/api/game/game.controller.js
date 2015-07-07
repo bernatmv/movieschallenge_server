@@ -25,22 +25,24 @@ class GameController {
 	}
 
 	playGame(req, res) {
+/*		
+		// to sync existing databases
+		QuestionModel.syncRandom(function (err, result) {
+  			console.log(result.updated);
+		});
+*/		
 		// get the game
 		GameModel.findById(req.params.gameId, (err, game) => {
 			if (err) {
 				res.send(err);
 			}
 			else {
-				console.log(req.decodedToken)
-				console.log(game.players.challenger)
-				console.log(game.players.challenged)
-				console.log(game)
 				// check that is the user's turn
 				if (game.thisTurn === req.decodedToken.username) {
 					// get a question from a category not completed, that has been approved,
 					// the right difficulty and that has not previously appeared in this match
 					var player = (req.decodedToken.username === game.players.challenger.username) ? game.players.challenger : game.players.challenged;
-					QuestionModel.find({
+					QuestionModel.findRandom({
 							approved: 1,
 			                difficulty: 1,
 			                category: { $in: GameController.calculateNotCompletedCategories(player.categoriesProgress) },
@@ -49,7 +51,7 @@ class GameController {
 							}
 						})
 			            .exec((err, questions) => {
-			    			(err) ? res.send(err) : res.json(questions);
+			    			(err) ? res.send(err) : res.json(questions.pop());
 			    		});
 				}
 				else {
@@ -68,26 +70,7 @@ class GameController {
 		}
 		return categories;
 	}
-/*
-<option value="0">Assign a category</option>
-<option value="1">History / Action</option>
-<option value="2">Romantic</option>
-<option value="3">Fantasy / SiFi</option>
-<option value="4">Humor</option>
-<option value="5">Family</option>
-<option value="6">Other</option>
 
-turn: { type: Number, min: 1, required: true },
-players: {
-	challenger: { username: String, categoriesProgress: [Number], questionsAnswered: [Schema.Types.ObjectId] },
-	challenged: { username: String, categoriesProgress: [Number], questionsAnswered: [Schema.Types.ObjectId] },
-},
-plays: [],
-thisTurn: String,
-ended: { type: Boolean, required: true },
-lastPlay: { type: Date },
-winner: String,
-*/
 	static __fillModel(req) {
 		var game = new GameModel();
 		game.turn = 1;

@@ -1,6 +1,7 @@
 // load the packages
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt-nodejs';
+import random from 'mongoose-random';
 
 var Schema = mongoose.Schema;
 
@@ -13,6 +14,8 @@ var QuestionModel = new Schema({
 	correctAnswer: { type: String, required: true },
 	otherAnswers: [String],
 }).index({ category: 1, approved: -1, difficulty: -1 });
+
+QuestionModel.plugin(random);
 
 // export the schema
 export default mongoose.model('Question', QuestionModel);
