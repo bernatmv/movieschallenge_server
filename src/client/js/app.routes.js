@@ -29,6 +29,12 @@ angular.module('ngApp.states', ['ui.router'])
 				controller: 'validateController',
 				controllerAs: 'validate',
 			})
+			.state('massUpload', {
+				url: '/massUpload',
+				templateUrl: 'views/pages/massUpload.html',
+				controller: 'massUploadController',
+				controllerAs: 'massive',
+			})
 			.state('questionEdit', {
 				url: '/edit/:questionId',
 				templateUrl: 'views/pages/questions.html',

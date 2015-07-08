@@ -5,8 +5,9 @@ angular
 		'ngApp.states',
 		'ngApp.main',
 		'ngApp.question.create',
-		'ngApp.question.edit', 
+		'ngApp.question.edit',
 		'ngApp.question.validate',
+		'ngApp.question.massUpload',
 		'ngApp.contact',
 		'ngAnimate'
 	])
