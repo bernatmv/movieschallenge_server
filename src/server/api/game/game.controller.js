@@ -51,6 +51,7 @@ class GameController {
 								$not: { $in: player.questionsAnswered }
 							}
 						})
+						.limit(1)
 			            .exec((err, questions) => {
 			    			(err) ? res.send(err) : res.json(questions.pop());
 			    		});
