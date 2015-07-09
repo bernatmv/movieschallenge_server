@@ -42,10 +42,11 @@ class GameController {
 					// get a question from a category not completed, that has been approved,
 					// the right difficulty and that has not previously appeared in this match
 					var player = (req.decodedToken.username === game.players.challenger.username) ? game.players.challenger : game.players.challenged;
+					var categories = GameController.calculateNotCompletedCategories(player.categoriesProgress);
 					QuestionModel.findRandom({
 							approved: 1,
 			                difficulty: 1,
-			                category: { $in: GameController.calculateNotCompletedCategories(player.categoriesProgress) },
+			                category: categories[Math.floor(Math.random()*categories.length)],
 							_id: {
 								$not: { $in: player.questionsAnswered }
 							}
