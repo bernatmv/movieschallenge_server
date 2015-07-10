@@ -52,10 +52,6 @@ class QuestionController {
 		QuestionModel.findById(req.params.questionId).remove().exec();
 	}
 
-	answerQuestion(req, res) {
-		res.send(`answer question ${req.params.questionId}`);
-	}
-
 	static __fillModel(req) {
 		var question = new QuestionModel();
 		question.category = req.body.category;

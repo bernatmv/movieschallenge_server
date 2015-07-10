@@ -25,12 +25,12 @@ class GameController {
 	}
 
 	playGame(req, res) {
-/*		
+/*
 		// to sync existing databases
 		QuestionModel.syncRandom(function (err, result) {
   			console.log(result.updated);
 		});
-*/		
+*/
 		// get the game
 		GameModel.findById(req.params.gameId, (err, game) => {
 			if (err) {
@@ -61,6 +61,10 @@ class GameController {
 				}
 			}
 		});
+	}
+
+	answerQuestion (req, res) {
+		res.send({ game: req.params.gameId, question: req.params.questionId, correct: req.body.correct });
 	}
 
 	static calculateNotCompletedCategories(progress) {
