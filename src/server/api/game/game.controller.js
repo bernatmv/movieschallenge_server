@@ -158,6 +158,7 @@ class GameController {
 		game.thisTurn = req.body.challenger;
 		game.ended = false;
 		game.lastPlay = new Date();
+		game.creator = req.decodedToken.username;
 		return game;
 	}
 }
