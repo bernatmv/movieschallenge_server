@@ -18,13 +18,13 @@ class UserController {
 
 	getUser(req, res) {
 		UserModel.findById(req.params.userId, (err, user) => {
-			(err) ? res.send(err) : res.json(user);
+			(err) ? res.status(500).send(err) : res.json(user);
 		});
 	}
 
 	getAllUsers(req, res) {
 		UserModel.find((err, users) => {
-			(err) ? res.send(err) : res.json(users);
+			(err) ? res.status(500).send(err) : res.json(users);
 		});
 	}
 
@@ -35,7 +35,7 @@ class UserController {
     getUserInfo(req, res) {
         UserModel.find({ username: req.params.username})
             .exec((err, user) => {
-		        (err) ? res.send(err) : res.json(user);
+		        (err) ? res.status(500).send(err) : res.json(user);
 		    });
 	}
 
@@ -45,7 +45,7 @@ class UserController {
 			res.json({ success: false, message: 'A register with this id already exists'});
 		}
 		else {
-			res.send(err);
+			res.status(500).send(err);
 		}
 	}
 

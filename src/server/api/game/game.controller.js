@@ -8,19 +8,19 @@ class GameController {
 		var game = GameController.__fillModel(req);
 		// save to db
 		game.save((err, reg) => {
-			(err) ?	res.send(err) : res.json({ success: true, id: reg._id });
+			(err) ?	res.status(500).send(err) : res.json({ success: true, id: reg._id });
 		});
 	}
 
 	getAllGames(req, res) {
 		GameModel.find((err, games) => {
-			(err) ? res.send(err) : res.json(games);
+			(err) ? res.status(500).send(err) : res.json(games);
 		});
 	}
 
 	getGame(req, res) {
 		GameModel.findById(req.params.gameId, (err, game) => {
-			(err) ? res.send(err) : res.json(game);
+			(err) ? res.status(500).send(err) : res.json(game);
 		});
 	}
 
@@ -57,7 +57,7 @@ class GameController {
 			    		});
 				}
 				else {
-					res.send({ success: false, message: 'Not the current user turn' });
+					res.status(500).send({ success: false, message: 'Not the current user turn' });
 				}
 			}
 		});
@@ -68,7 +68,7 @@ class GameController {
 		// get the game
 		GameModel.findById(req.params.gameId, (err, game) => {
 			if (err) {
-				res.send(err);
+				res.status(500).send(err);
 			}
 			else {
 				const whoIsPlayer = (currentUser == game.players.challenger.username) ? 'challenger' : 'challenged';
@@ -79,7 +79,7 @@ class GameController {
 					// get the question being answered
 					QuestionModel.findById(req.params.questionId, (err, question) => {
 						if (err) {
-							res.send(err);	
+							res.status(500).send(err);	
 						}
 						else {
 							// if the answer is correct
@@ -116,17 +116,17 @@ class GameController {
 							}
 							// save the game and return the updated register
 							game.save((err, reg) => {
-								(err) ?	res.send(err) : res.json(reg);
+								(err) ?	res.status(500).send(err) : res.json(reg);
 							});
 						}
 					});
 				}
 				else {
-					res.send({ success: false, message: 'Not the current user turn' });
+					res.status(500).send({ success: false, message: 'Not the current user turn' });
 				}
 			}
 		});
-		res.send({ game: req.params.gameId, question: req.params.questionId, correct: req.body.correct, answer: req.body.answer, position: req.body.position });
+		//res.send({ game: req.params.gameId, question: req.params.questionId, correct: req.body.correct, answer: req.body.answer, position: req.body.position });
 	}
 
 	static calculateNotCompletedCategories(progress) {

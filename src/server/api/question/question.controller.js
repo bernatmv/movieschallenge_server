@@ -24,27 +24,27 @@ class QuestionController {
     		var question = QuestionController.__fillModel(req);
     		// save to db
     		question.save((err, reg) => {
-    			return (err) ?	res.send(err) : res.json({ success: true, id: reg._id, message: 'Question created!' });
+    			return (err) ?	res.status(500).send(err) : res.json({ success: true, id: reg._id, message: 'Question created!' });
     		});
         }
 	}
 
 	getAllQuestions(req, res) {
 		QuestionModel.find((err, questions) => {
-			(err) ? res.send(err) : res.json(questions);
+			(err) ? res.status(500).send(err) : res.json(questions);
 		});
 	}
 
     getAllPendingQuestions(req, res) {
 		QuestionModel.find({ approved: 0 })
             .exec((err, questions) => {
-    			(err) ? res.send(err) : res.json(questions);
+    			(err) ? res.status(500).send(err) : res.json(questions);
     		});
 	}
 
 	getQuestion(req, res) {
 		QuestionModel.findById(req.params.questionId, (err, question) => {
-			(err) ? res.send(err) : res.json(question);
+			(err) ? res.status(500).send(err) : res.json(question);
 		});
 	}
 
