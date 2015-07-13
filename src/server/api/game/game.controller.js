@@ -79,23 +79,26 @@ class GameController {
 					// get the question being answered
 					QuestionModel.findById(req.params.questionId, (err, question) => {
 						if (err) {
-							res.status(500).send(err);	
+							res.status(500).send(err);
 						}
 						else {
 							// if the answer is correct
 							if (question.correctAnswer == req.body.answer) {
 								// add play to the play array
-								games.plays.push({ question: question._id, category: question.category, difficulty: question.difficulty, correct: true });
+								game.plays.push({ question: question._id, category: question.category, difficulty: question.difficulty, correct: true });
 								// change last play date
-								game.lastPlay = new Date();								
+								game.lastPlay = new Date();
 								// update category progress
 								game.players[whoIsPlayer].categoriesProgress[question.category]++;
 								// add question to questions answered
 								game.players[whoIsPlayer].questionsAnswered.push(question._id);
-								// if needed load the category star question
-
+								// if the progress reach lvl 3, the game will launch a star question the next time it updates state
+								// if all the categories progress reach lvl 4, the game will launch the final round the next time it updates state
 								// if needed end the game and set the winner
-								
+								if (GameController.calculateNotCompletedCategories(game.players[whoIsPlayer].categoriesProgress) === []) {
+									game.winner = currentUser;
+									game.ended = true;
+								}
 							}
 							// if the answer is not correct, switch turn
 							else {
