@@ -89,7 +89,7 @@ class GameController {
 								// change last play date
 								game.lastPlay = new Date();
 								// update category progress
-								game.players[whoIsPlayer].categoriesProgress[question.category]++;
+								game.players[whoIsPlayer].categoriesProgress[question.category - 1]++;
 								// add question to questions answered
 								game.players[whoIsPlayer].questionsAnswered.push(question._id);
 								// if the progress reach lvl 3, the game will launch a star question the next time it updates state
@@ -111,13 +111,14 @@ class GameController {
 								// change last play date
 								game.lastPlay = new Date();
 								// if the category progress is at 3 and the question is failed (it was a question for the star), reset progress to 0
-								if (game.players[whoIsPlayer].categoriesProgress[question.category] == 3) {
-									game.players[whoIsPlayer].categoriesProgress[question.category] = 0;
+								if (game.players[whoIsPlayer].categoriesProgress[question.category - 1] == 3) {
+									game.players[whoIsPlayer].categoriesProgress[question.category - 1] = 0;
 								}
 								// add question to questions answered
 								game.players[whoIsPlayer].questionsAnswered.push(question._id);
 							}
 							// save the game and return the updated register
+							game.markModified('players');
 							game.save((err, reg) => {
 								(err) ?	res.status(500).send(err) : res.json(reg);
 							});
