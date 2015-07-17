@@ -10,6 +10,7 @@ class QuestionRouter extends BaseRouter {
 		// add routes
 		this.router.get('/questions', questionController.getAllQuestions);
 		this.router.get('/question/:questionId', questionController.getQuestion);
+		this.router.get('/question/category/:category', questionController.getQuestionByCategory);
 		this.router.post('/question', questionController.createQuestion);
 		this.router.get('/questionsPending', questionController.getAllPendingQuestions);
 		this.router.delete('/question/:questionId', questionController.deleteQuestion);

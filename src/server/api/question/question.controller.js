@@ -42,6 +42,18 @@ class QuestionController {
     		});
 	}
 
+    getQuestionByCategory(req, res) {
+        QuestionModel.findRandom({
+                approved: 1,
+                difficulty: 3,
+                category: req.params.category
+            })
+            .limit(1)
+            .exec((err, questions) => {
+                (err) ? res.status(500).send(err) : res.json(questions.pop());
+            });
+	}
+
 	getQuestion(req, res) {
 		QuestionModel.findById(req.params.questionId, (err, question) => {
 			(err) ? res.status(500).send(err) : res.json(question);

@@ -53,7 +53,7 @@ class GameController {
 						})
 						.limit(1)
 			            .exec((err, questions) => {
-			    			(err) ? res.send(err) : res.json(questions.pop());
+			    			(err) ? res.status(500).send(err) : res.json(questions.pop());
 			    		});
 				}
 				else {
