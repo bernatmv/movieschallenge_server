@@ -13,9 +13,12 @@ class GameController {
 	}
 
 	getAllGames(req, res) {
-		GameModel.find((err, games) => {
-			(err) ? res.status(500).send(err) : res.json(games);
-		});
+		GameModel
+			.find({})
+			.sort({ended: 1, lastPlay: -1})
+			.exec((err, games) => {
+				(err) ? res.status(500).send(err) : res.json(games);
+			});
 	}
 
 	getGame(req, res) {
@@ -171,7 +174,6 @@ class GameController {
 				const whoIsRival = (currentUser == game.players.challenger.username) ? 'challenged' : 'challenger';
 				const rivalPlayer = game.players[whoIsRival].username
 				// check that is the user's turn
-				console.log(game);
 				if (game.thisTurn === currentUser) {
 					// change turn
 					game.turn++;
