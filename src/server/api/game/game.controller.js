@@ -133,6 +133,108 @@ class GameController {
 		//res.send({ game: req.params.gameId, question: req.params.questionId, correct: req.body.correct, answer: req.body.answer, position: req.body.position });
 	}
 
+	endGameSuccess (req, res) {
+		const currentUser = req.decodedToken.username;
+		// get the game
+		GameModel.findById(req.params.gameId, (err, game) => {
+			if (err) {
+				res.status(500).send(err);
+			}
+			else {
+				// check that is the user's turn
+				if (game.thisTurn === currentUser) {
+					// end game 
+					game.ended = true;
+					game.winner = currentUser;
+					game.lastPlay = new Date();
+					// save modified game
+					game.save((err, reg) => {
+						(err) ?	res.status(500).send(err) : res.json(reg);
+					});
+				}
+				else {
+					res.status(500).send({ success: false, message: 'Not the current user turn' });
+				}
+			}
+		});
+	}
+
+	endGameFail (req, res) {
+		const currentUser = req.decodedToken.username;
+		// get the game
+		GameModel.findById(req.params.gameId, (err, game) => {
+			if (err) {
+				res.status(500).send(err);
+			}
+			else {
+				const whoIsPlayer = (currentUser == game.players.challenger.username) ? 'challenger' : 'challenged';
+				const whoIsRival = (currentUser == game.players.challenger.username) ? 'challenged' : 'challenger';
+				const rivalPlayer = game.players[whoIsRival].username
+				// check that is the user's turn
+				console.log(game);
+				if (game.thisTurn === currentUser) {
+					// change turn
+					game.turn++;
+					game.thisTurn = rivalPlayer;
+					game.lastPlay = new Date();
+					// save modified game
+					game.save((err, reg) => {
+						(err) ?	res.status(500).send(err) : res.json(reg);
+					});
+				}
+				else {
+					res.status(500).send({ success: false, message: 'Not the current user turn' });
+				}
+			}
+		});
+	}
+
+	finalRound (req, res) {
+		var questions = [];
+		const currentUser = req.decodedToken.username;
+		// get the game
+		GameModel.findById(req.params.gameId, (err, game) => {
+			if (err) {
+				res.status(500).send(err);
+			}
+			else {
+				// check that is the user's turn
+				if (game.thisTurn === req.decodedToken.username) {
+					GameController.getFinalRoundQuestions(questions, GameController.sendFinalRound, res);
+				}
+				else {
+					res.status(500).send({ success: false, message: 'Not the current user turn' });
+				}
+			}
+		});
+	}
+
+	static sendFinalRound(questions, res) {
+		if (questions.length == 6) {
+			res.json(questions);
+		}
+	}
+
+	static getFinalRoundQuestions(questions, callback, res) {
+		for (var category = 1; category <= 6; category++) {
+	        QuestionModel.findRandom({
+	                approved: 1,
+	                difficulty: 3,
+	                category: category
+	            })
+	            .limit(1)
+	            .exec((err, results) => {
+	                if (err) {
+	                	res.status(500).send(err);	
+	                }
+	                else {
+	                	questions.push(results.pop());
+	                	callback(questions, res);
+	                }
+	            });
+		}
+	}
+
 	static calculateNotCompletedCategories(progress) {
 		var categories = [];
 		for (var i = 0, j = progress.length; i < j; i++) {

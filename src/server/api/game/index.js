@@ -13,6 +13,9 @@ class GameRouter extends BaseRouter {
 		this.router.get('/game/:gameId', gameController.getGame);
 		this.router.get('/game/:gameId/play', gameController.playGame);
 		this.router.post('/game/:gameId/answer/:questionId', gameController.answerQuestion);
+		this.router.post('/game/:gameId/finalRoundSuccess', gameController.endGameSuccess);
+		this.router.post('/game/:gameId/finalRoundFailed', gameController.endGameFail);
+		this.router.get('/game/:gameId/finalRound', gameController.finalRound);
 	}
 }
 
