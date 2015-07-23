@@ -1,6 +1,7 @@
 // load the packages
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt-nodejs';
+import random from 'mongoose-random';
 
 var Schema = mongoose.Schema;
 
@@ -38,6 +39,8 @@ UserModel.methods.comparePassword = function(password) {
 	// compare with stored password
 	return bcrypt.compareSync(password, user.password);
 }
+
+UserModel.plugin(random);
 
 // export the schema
 export default mongoose.model('User', UserModel);

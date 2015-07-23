@@ -1,15 +1,43 @@
 import GameModel from './game.model'
 import QuestionModel from '../question/question.model'
+import UserModel from '../user/user.model'
 
 class GameController {
 
 	createGame(req, res) {
-		// create model and fill data
-		var game = GameController.__fillModel(req);
-		// save to db
-		game.save((err, reg) => {
-			(err) ?	res.status(500).send(err) : res.json({ success: true, id: reg._id });
+		// check that the challenged user exists
+		UserModel.count({username: req.body.challenged}, function (err, count) {
+		    if (count > 0) {
+				// create model and fill data
+				var game = GameController.__fillModel(req.decodedToken.username, req.body.challenged);
+				// save to db
+				game.save((err, reg) => {
+					(err) ?	res.status(500).send(err) : res.json({ success: true, id: reg._id });
+				});
+		    }
+			else {
+				res.send({ success: false, errorCode: 404, message: 'The specified challenged user does not exist in the DB' });
+			}
 		});
+	}
+
+	createGameRandom(req, res) {
+		// check that the challenged user exists
+		UserModel.findRandom({
+				username: {
+					$not: { $in: [req.decodedToken.username] }
+				}
+			})
+			.limit(1)
+			.exec(function (err, users) {
+				var challenged = users.pop();
+				// create model and fill data
+				var game = GameController.__fillModel(req.decodedToken.username, challenged.username);
+				// save to db
+				game.save((err, reg) => {
+					(err) ?	res.status(500).send(err) : res.json({ success: true, id: reg._id });
+				});
+			});
 	}
 
 	getAllGames(req, res) {
@@ -28,12 +56,6 @@ class GameController {
 	}
 
 	playGame(req, res) {
-/*
-		// to sync existing databases
-		QuestionModel.syncRandom(function (err, result) {
-  			console.log(result.updated);
-		});
-*/
 		// get the game
 		GameModel.findById(req.params.gameId, (err, game) => {
 			if (err) {
@@ -146,7 +168,7 @@ class GameController {
 			else {
 				// check that is the user's turn
 				if (game.thisTurn === currentUser) {
-					// end game 
+					// end game
 					game.ended = true;
 					game.winner = currentUser;
 					game.lastPlay = new Date();
@@ -227,7 +249,7 @@ class GameController {
 	            .limit(1)
 	            .exec((err, results) => {
 	                if (err) {
-	                	res.status(500).send(err);	
+	                	res.status(500).send(err);
 	                }
 	                else {
 	                	questions.push(results.pop());
@@ -247,28 +269,38 @@ class GameController {
 		return categories;
 	}
 
-	static __fillModel(req) {
+	static __fillModel(challenger, challenged) {
 		var game = new GameModel();
 		game.turn = 1;
 		game.players = {
 			challenger: {
-				username: req.body.challenger,
+				username: challenger,
 				categoriesProgress: [0, 0, 0, 0, 0, 0],
 				questionsAnswered: [],
 			},
 			challenged: {
-				username: req.body.challenged,
+				username: challenged,
 				categoriesProgress: [0, 0, 0, 0, 0, 0],
 				questionsAnswered: [],
 			},
 		};
 		game.plays = [];
-		game.thisTurn = req.body.challenger;
+		game.thisTurn = challenger;
 		game.ended = false;
 		game.lastPlay = new Date();
-		game.creator = req.decodedToken.username;
+		game.creator = challenger;
 		return game;
 	}
 }
 
 export default GameController;
+
+/*
+		// to sync existing databases
+		UserModel.syncRandom(function (err, result) {
+  			console.log(result.updated);
+		});
+		QuestionModel.syncRandom(function (err, result) {
+  			console.log(result.updated);
+		});
+*/
