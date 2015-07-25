@@ -4,7 +4,7 @@
   "description": "The server part of the Movies Challenge game, developed using the MEAN stack",
   "main": "src/server.js",
   "scripts": {
-    "server-pro": "babel-node ./src/server/server.js",
+    "server-pro": "babel ./src/server/server.js --out-file ./src/server/server-compiled.js & node ./src/server/server-compiled.js",
     "server-dev": "gulp",
     "clean": "gulp clean",
     "postinstall": "npm run clean & npm run server-pro",
