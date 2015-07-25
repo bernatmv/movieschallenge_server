@@ -7,8 +7,8 @@
     "server-pro": "babel-node ./src/server/server.js",
     "server-dev": "gulp",
     "clean": "gulp clean",
-    "postinstall": "npm run clean",
-    "start": "npm run server-pro"
+    "postinstall": "npm run clean & npm run server-pro",
+    "start": "gulp"
   },
   "repository": {
     "type": "git",
