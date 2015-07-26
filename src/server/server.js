@@ -32,9 +32,11 @@ app.use((req, res, next) => {
 routes(app);
 
 // static server for the assets and Angular app
-app.use(express.static(__dirname + '/../client'));
+//app.use(express.static(__dirname + 'repos/movieschallenge_server/build/client'));
+app.use(express.static('./build/client'));
 app.get('*', function(req, res) {
-	res.sendFile(path.join(__dirname + '/../client/index.html'));
+//	res.sendFile(path.join(__dirname + 'repos/movieschallenge_server/build/client/index.html'));
+	res.sendFile(path.join('./build/client/index.html'));
 });
 
 // start the server

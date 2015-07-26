@@ -1,5 +1,15 @@
+var webpack = require('webpack');
+var path = require('path');
 var fs = require('fs');
-var node_modules = fs.readdirSync('node_modules').filter(function(x) { return x !== '.bin' });
+
+var nodeModules = {};
+fs.readdirSync('node_modules')
+  .filter(function(x) {
+    return ['.bin'].indexOf(x) === -1;
+  })
+  .forEach(function(mod) {
+    nodeModules[mod] = 'commonjs ' + mod;
+  });
 
 module.exports = {
     target: "node",
@@ -8,14 +18,13 @@ module.exports = {
     },
     entry: './src/server/server.js',
     output: {
-        path: './src/server',
-        publicPath: './src/server/',
+        path: './build',
         filename: 'server_compiled.js'
     },
     module: {
         loaders: [{
             test: /\.js$/,
-            exclude: /node_modules/,
+            //exclude: /node_modules/,
             loader: 'babel'
         }, {
             test: /\.json$/,
@@ -25,10 +34,11 @@ module.exports = {
             loader: "node-loader"
         }]
     },
-    externals: node_modules,
+    externals: nodeModules,
     stats: {
         colors: true
     },
+    /*
     node: {
         console: true,
         global: true,
@@ -41,6 +51,7 @@ module.exports = {
         tls: "empty",
         net: "empty"
     },
+    */
     watch: false,
-    keepalive: true
+    keepalive: false
 };
