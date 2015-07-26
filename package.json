@@ -7,7 +7,7 @@
     "server-pro": "babel ./src/server/server.js --out-file ./src/server/server-compiled.js & node ./src/server/server-compiled.js",
     "server-dev": "gulp",
     "clean": "gulp clean",
-    "postinstall": "npm run clean & npm run server-pro",
+    "postinstall": "gulp",
     "start": "gulp"
   },
   "engines": {
@@ -48,6 +48,7 @@
     "webpack": "^1.9.11",
     "webpack-config": "^0.7.0",
     "webpack-dev-server": "^1.9.0",
-    "mongoose-random": "~0.1.1"
+    "mongoose-random": "~0.1.1",
+    "node-loader": "~0.5.0"
   }
 }
