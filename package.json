@@ -7,7 +7,7 @@
     "server-pro": "babel ./src/server/server.js --out-file ./src/server/server-compiled.js & node ./src/server/server-compiled.js",
     "clean": "gulp clean",
     "postinstall": "npm run start-server",
-    "start-server": "npm run gulp-client & npm run webpack-es6 & npm run run-node",
+    "start-server": "npm run gulp-client && npm run webpack-es6 && npm run run-node",
     "gulp-client": "gulp start",
     "webpack-es6": "webpack --progress --colors",
     "run-node": "node build/server_compiled.js"
