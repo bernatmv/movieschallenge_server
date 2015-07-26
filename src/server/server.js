@@ -43,3 +43,5 @@ app.get('*', function(req, res) {
 app.listen(config.port);
 
 console.log(`Listening to port: ${config.port}`);
+
+export default app;
