@@ -33,7 +33,7 @@ class UserController {
 	}
 
     getUserInfo(req, res) {
-        UserModel.find({ username: req.params.username})
+        UserModel.find({ username: req.params.username.toLowerCase()})
             .exec((err, user) => {
 		        (err) ? res.status(500).send(err) : res.json(user);
 		    });
@@ -52,7 +52,7 @@ class UserController {
 	static __fillModel(req) {
 		var user = new UserModel();
 		user.email = req.body.email;
-		user.username = req.body.username;
+		user.username = req.body.username.toLowerCase();
 		user.password = req.body.password;
 		return user;
 	}

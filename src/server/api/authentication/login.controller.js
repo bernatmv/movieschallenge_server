@@ -6,7 +6,7 @@ class LoginController {
 
 	authenticate(req, res) {
 		UserModel.findOne({
-				username: req.body.username
+				username: req.body.username.toLowerCase()
 			})
 			.select('email username password admin')
 			.exec((err, user) => {
