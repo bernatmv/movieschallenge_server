@@ -7,9 +7,9 @@ import AuthenticationRouter from '../api/authentication';
 
 // add authentication, controls and routes
 AuthenticationRouter.addRoutes();
+UserRouter.addRoutes();
 // from this point everything needs to be authenticated
-UserRouter.authenticated().addRoutes();
-GameRouter.addRoutes();
+GameRouter.authenticated().addRoutes();
 QuestionRouter.addRoutes();
 
 // apply routes to the app

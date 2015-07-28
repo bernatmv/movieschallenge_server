@@ -18,13 +18,14 @@ class UserController {
 
 	getUser(req, res) {
 		UserModel.findById(req.params.userId, (err, user) => {
-			(err) ? res.status(500).send(err) : res.json(user);
+			(err) ? res.status(500).send(err) : res.json(UserController.__private(user));
 		});
 	}
 
 	getAllUsers(req, res) {
 		UserModel.find((err, users) => {
-			(err) ? res.status(500).send(err) : res.json(users);
+//			(err) ? res.status(500).send(err) : res.json(users);
+			(err) ? res.status(500).send(err) : res.status(500).json({message: "Not allowed to recover all users"});
 		});
 	}
 
@@ -35,7 +36,7 @@ class UserController {
     getUserInfo(req, res) {
         UserModel.find({ username: req.params.username.toLowerCase()})
             .exec((err, user) => {
-		        (err) ? res.status(500).send(err) : res.json(user);
+		        (err) ? res.status(500).send(err) : res.json(UserController.__private(user));
 		    });
 	}
 
@@ -56,6 +57,11 @@ class UserController {
 		user.password = req.body.password;
 		return user;
 	}
+
+    static __private(user) {
+        user.email = "private";
+        return user;
+    }
 }
 
 export default UserController;
