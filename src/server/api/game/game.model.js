@@ -17,7 +17,9 @@ var GameModel = new Schema({
 	lastPlay: { type: Date },
 	winner: String,
 	creator: String,
-}).index({ lastPlay: -1, ended: 1, thisTurn: 1, creator: 1/*, players.challenger.id: 1, players.challenged.id: 1*/ });
+	challenger: String,
+	challenged: String,
+}).index({ lastPlay: -1, ended: 1, thisTurn: 1, creator: 1, challenger: 1, challenged: 1 });
 
 // export the schema
 export default mongoose.model('Game', GameModel);

@@ -44,8 +44,13 @@ class GameController {
 
 	getAllGames(req, res) {
 		GameModel
-			.find({})
-			.sort({ended: 1, lastPlay: -1})
+			.find({
+				$or: [
+					{ challenger: req.decodedToken.username },
+					{ challenged: req.decodedToken.username }
+				]
+			})
+			.sort({ ended: 1, lastPlay: -1 })
 			.exec((err, games) => {
 				(err) ? res.status(500).send(err) : res.json(games);
 			});
@@ -291,6 +296,8 @@ class GameController {
 		game.ended = false;
 		game.lastPlay = new Date();
 		game.creator = challenger;
+		game.challenger = challenger;
+		game.challenged = challenged;
 		return game;
 	}
 }
