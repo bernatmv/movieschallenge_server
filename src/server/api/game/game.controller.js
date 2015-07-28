@@ -5,20 +5,22 @@ import UserModel from '../user/user.model'
 class GameController {
 
 	createGame(req, res) {
-		// check that the challenged user exists
-		UserModel.count({username: req.body.challenged}, function (err, count) {
-		    if (count > 0) {
-				// create model and fill data
-				var game = GameController.__fillModel(req.decodedToken.username, req.body.challenged);
-				// save to db
-				game.save((err, reg) => {
-					(err) ?	res.status(500).send(err) : res.json({ success: true, id: reg._id });
-				});
-		    }
-			else {
-				res.send({ success: false, errorCode: 404, message: 'The specified challenged user does not exist in the DB' });
-			}
-		});
+		if (req.body.challenged != req.body.challenger) {
+			// check that the challenged user exists
+			UserModel.count({username: req.body.challenged}, function (err, count) {
+			    if (count > 0) {
+					// create model and fill data
+					var game = GameController.__fillModel(req.decodedToken.username, req.body.challenged);
+					// save to db
+					game.save((err, reg) => {
+						(err) ?	res.status(500).send(err) : res.json({ success: true, id: reg._id });
+					});
+			    }
+				else {
+					res.send({ success: false, errorCode: 404, message: 'The specified challenged user does not exist in the DB' });
+				}
+			});
+		}
 	}
 
 	createGameRandom(req, res) {
