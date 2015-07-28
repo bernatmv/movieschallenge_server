@@ -21,20 +21,24 @@ class LoginController {
 						res.json({ success: false, message: 'Authentication failed, wrong password'});
 					}
 					else {
-						// create token
-						var token = jwt.sign({
-							username: user.username,
-							email: user.email,
-							admin: user.admin
-						}, config.secret, {
-							expiresInMinutes: 60 * 24 * 365 * 10,	// expires in 10 years (in minutes)
-						});
-						// send token
-						res.json({ success: true, token: token, username: user.username });
+                        LoginController.__authResponse(res, user);
 					}
 				}
 			});
 	}
+
+    static __authResponse(res, user) {
+        // create token
+        var token = jwt.sign({
+            username: user.username,
+            email: user.email,
+            admin: user.admin
+        }, config.secret, {
+            expiresInMinutes: 60 * 24 * 365 * 10,	// expires in 10 years (in minutes)
+        });
+        // send token
+        res.json({ success: true, token: token, username: user.username });
+    }
 
 	forgotPassword(req, res) {
 		// TODO: do it!

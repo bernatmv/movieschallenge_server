@@ -1,4 +1,5 @@
 import UserModel from './user.model'
+import LoginController from '../authentication/login.controller'
 
 class UserController {
 
@@ -11,7 +12,8 @@ class UserController {
 				UserController.__processError(err, res);
 			}
 			else {
-				res.json({ success: true, id: reg._id });
+                LoginController.__authResponse(res, reg);
+				//res.json({ success: true, id: reg._id });
 			}
 		});
 	}
