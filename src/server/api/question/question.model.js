@@ -13,7 +13,8 @@ var QuestionModel = new Schema({
 	quote: { type: String, required: true },
 	correctAnswer: { type: String, required: true },
 	otherAnswers: [String],
-}).index({ category: 1, approved: -1, difficulty: -1 });
+	creator: { type: String },
+}).index({ category: 1, approved: -1, difficulty: -1, creator: 1 });
 
 QuestionModel.plugin(random);
 

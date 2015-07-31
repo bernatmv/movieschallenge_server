@@ -71,6 +71,7 @@ class QuestionController {
 		question.quote = req.body.quote;
 		question.correctAnswer = req.body.correctAnswer;
 		question.otherAnswers = req.body.otherAnswers;
+        question.creator = req.decodedToken.username;
 		return question;
 	}
 }
