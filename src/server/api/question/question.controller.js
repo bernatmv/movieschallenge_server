@@ -14,7 +14,7 @@ class QuestionController {
                 question.approved = req.body.approved;
                 // save to db
         		question.save((err, reg) => {
-        			return (err) ?	res.send(err) : res.json({ success: true, id: reg._id, message: 'Question updated!' });
+        			return (err) ?	res.send({ success: false, error: err }) : res.json({ success: true, id: reg._id, message: 'Question updated!' });
         		});
             });
         }
@@ -24,7 +24,7 @@ class QuestionController {
     		var question = QuestionController.__fillModel(req);
     		// save to db
     		question.save((err, reg) => {
-    			return (err) ?	res.status(500).send(err) : res.json({ success: true, id: reg._id, message: 'Question created!' });
+    			return (err) ?	res.send({ success: false, error: err }) : res.json({ success: true, id: reg._id, message: 'Question created!' });
     		});
         }
 	}
