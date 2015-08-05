@@ -12,6 +12,7 @@ var UserModel = new Schema({
 	password: { type: String, required: true, select: false },
 	admin: { type: Number, default: 0 },
 	ranking: { type: Number, default: 0 },
+	name: { type: String, default: "" },
 }).index({ username: 1 }, { unique: true });
 
 // hash de password before saving the document
