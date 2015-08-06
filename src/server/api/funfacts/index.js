@@ -10,6 +10,7 @@ class FunFactsRouter extends BaseRouter {
 		// add routes
 		this.router.get('/funfacts', funfactsController.getAllFacts);
 		this.router.get('/funfact/:factId', funfactsController.getFact);
+		this.router.get('/funfact/random', funfactsController.getRandomFact);
 		this.router.post('/funfact', funfactsController.createFact);
 	}
 }

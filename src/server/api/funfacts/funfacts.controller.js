@@ -6,7 +6,7 @@ class FunFactsController {
 		// create model and fill data
 		var fact = FunFactsController.__fillModel(req);
 		// save to db
-		fact.save((err, reg) => { 
+		fact.save((err, reg) => {
 			(err) ?	res.send(err) : res.json({ success: true, id: reg._id });
 		});
 	}
@@ -16,11 +16,19 @@ class FunFactsController {
 			(err) ? res.send(err) : res.json(facts);
 		});
 	}
- 
+
  	getFact(req, res) {
 		FunFactModel.findById(req.params.factId, (err, fact) => {
 			(err) ? res.send(err) : res.json(fact);
 		});
+	}
+
+	getRandomFact(req, res) {
+		FunFactModel.findRandom({})
+				.limit(1)
+				.exec((err, facts) => {
+						(err) ? res.status(500).send(err) : res.json(facts.pop());
+				});
 	}
 
 	static __fillModel(req) {
