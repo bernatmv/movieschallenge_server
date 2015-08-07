@@ -57,6 +57,7 @@ class UserController {
 		user.email = req.body.email;
 		user.username = req.body.username.toLowerCase();
 		user.password = req.body.password;
+        user.name = req.body.name;
 		return user;
 	}
 
